@@ -1,0 +1,35 @@
+{
+  "name": "Slacker",
+  "version": "0.0.1",
+  "description": "A simple app for sending joke messages to Slack",
+  "author": "Nathan Hoad",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~4.1.2",
+    "body-parser": "~1.1.1",
+    "request": "~2.35.0"
+  },
+  "devDependencies": {
+    "gulp": "3.6.x",
+    "gulp-concat": "*",
+    "gulp-uglify": "*",
+    "gulp-browserify": "*",
+    "gulp-ruby-sass": "*",
+    "gulp-minify-css": "*",
+    "gulp-rename": "*",
+    "gulp-notify": "*",
+    "gulp-nodemon": "*",
+    "gulp-livereload": "*",
+    "gulp-clean": "*",
+    "gulp-exit": "*",
+    "gulp-htmlmin": "*"
+  },
+  "scripts": {
+    "postinstall": "bower install",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}
