@@ -25,13 +25,8 @@
     "gulp-htmlmin": "*"
   },
   "scripts": {
-<<<<<<< HEAD
     "postinstall": "bower install && gulp",
-    "start": "node server.js"
-=======
-    "postinstall": "bower install",
     "start": "node app/server.js"
->>>>>>> 8f91f11471b50c32335015e107376cc22b02f9fe
   },
   "repository": {
     "type": "git",

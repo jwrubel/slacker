@@ -5,13 +5,9 @@ var gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
     minifycss = require('gulp-minify-css'),
     nodemon = require('gulp-nodemon'),
-    livereload = require('gulp-livereload'),
     clean = require('gulp-clean'),
     exit = require('gulp-exit'),
     htmlmin = require('gulp-htmlmin');
-
-
-var livereloadSever = livereload();
 
 var bower_components = {
   js: [
@@ -31,7 +27,7 @@ gulp.task('js', function () {
     .pipe(concat('bower.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('build'))
-    .pipe(livereload());
+    .on('end', livereload('.js'))
 
   // App
   gulp.src('app/app.js')
@@ -42,7 +38,7 @@ gulp.task('js', function () {
     .pipe(uglify())
     .pipe(concat('app.min.js'))
     .pipe(gulp.dest('build'))
-    .pipe(livereload());
+    .on('end', livereload('.js'))
 });
 
 
@@ -52,7 +48,7 @@ gulp.task('css', function () {
     .pipe(minifycss())
     .pipe(concat('bower.min.css'))
     .pipe(gulp.dest('build'))
-    .pipe(livereload());
+    .on('end', livereload('.css'))
 
   // App
   gulp.src('app/styles/app.scss')
@@ -63,7 +59,7 @@ gulp.task('css', function () {
     .pipe(minifycss())
     .pipe(concat('app.min.css'))
     .pipe(gulp.dest('build'))
-    .pipe(livereload());
+    .on('end', livereload('.css'))
 });
 
 
@@ -78,24 +74,24 @@ gulp.task('html', function () {
       return error;
     })
     .pipe(gulp.dest('build'))
-    .pipe(livereload());
+    .on('end', livereload('.html'))
 });
 
 
 gulp.task('images', function () {
   gulp.src('app/images/*')
     .pipe(gulp.dest('build'))
-    .pipe(livereload());
+    .on('end', livereload('.html'))
 });
 
 
 gulp.task('server', function () {
-  nodemon({ 
-    script: 'app/server.js', 
-    ext: 'js', 
-    ignore: ['gulpfile.js', 'scripts/*'], 
-    env: { 
-      'NODE_ENV': 'development' 
+  nodemon({
+    script: 'app/server.js',
+    ext: 'js',
+    ignore: ['gulpfile.js', 'scripts/*'],
+    env: {
+      'NODE_ENV': 'development'
     }
   }).on('error', function (error) {
     return error;
@@ -110,16 +106,27 @@ gulp.task('clean', function () {
 });
 
 
-gulp.task('watch', function () {
+var livereloadServer = null;
+var livereload = function (_file) {
+  return function (_path) {
+    if (livereloadServer) livereloadServer.changed(_file);
+  }
+}
+
+gulp.task('watch', function() {
+  livereloadServer = require('gulp-livereload')();
   gulp.watch(['app/**/*.js', 'bower_components/**/*.js'], ['js']);
   gulp.watch(['app/**/*.scss', 'bower_components/**/*.css'], ['css']);
   gulp.watch(['app/**/*.html'], ['html']);
   gulp.watch(['app/**/*.png', 'app/**/*.jpg'], ['images']);
 });
 
+gulp.task('run', [
+  'default',
+  'watch',
+  'server'
+]);
 
 gulp.task('default', [
   'js', 'css', 'html', 'images',
-  'watch', 
-  'server'
 ]);
