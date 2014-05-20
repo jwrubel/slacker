@@ -10,19 +10,19 @@ server.use(express.static(__dirname + '/../build'));
 server.post('/create', function (req, res) {
   payload = {
     channel: (req.body.message.channel == '' ? '#general' : req.body.message.channel),
-    username: req.body.message.character.username, 
+    username: req.body.message.character.username,
     icon_url: req.body.message.character.icon_url,
     text: req.body.message.text
   };
 
   options = {
-    url: req.body.url, 
-    method: "POST", 
+    url: req.body.url,
+    method: "POST",
     body: JSON.stringify(payload)
   };
 
   request(options, function (err, response, body) {
-    if (err) { 
+    if (err) {
       res.send(500, err);
       res.end();
       return;
@@ -33,4 +33,7 @@ server.post('/create', function (req, res) {
   });
 });
 
-server.listen(8080);
+var port = process.env.PORT || 8080;
+server.listen(port);
+
+console.log("Server running on http://localhost:" + port);
