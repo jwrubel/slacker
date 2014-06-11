@@ -10,11 +10,21 @@ module.exports = function (app) {
         name: '',
         url: ''
       };
+
+      // Check for a previous company
+      var data = localStorage.getItem('company');
+      if (data) {
+        this.$.previousCompany = JSON.parse(atob(data));
+        this.$.previousCompany.data = data;
+      }
     },
 
 
     createCompany: function () {
       var data = btoa(JSON.stringify(this.$.company));
+
+      localStorage.setItem('company', data);
+
       this.$location.path('/' + data);
     }
   });

@@ -6,6 +6,11 @@
 
   <div class="signup">
     <form ng-submit="createCompany()">
+      <div class="previous-company" ng-show="previousCompany">
+        <a ng-href="/#/{{previousCompany.data}}" class="btn btn-success btn-lg btn-block">Go back to {{previousCompany.name}}</a>
+        <p>or</p>
+      </div>
+
       <div class="form-group">
         <input ng-model="company.name" class="form-control input-lg" placeholder="Company Name" autofocus="true" />
       </div>

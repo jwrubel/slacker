@@ -41,14 +41,27 @@
     margin: auto;
   }
 
+  .previous-company {
+    a {
+      margin-bottom: 15px;
+    }
+
+    p {
+      text-align: center;
+      color: #999;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+  }
+
 
   .footer {
     text-align: center;
-    color: #999;
-    margin: 120px 0 20px 0;
+    color: #888;
+    margin: 90px 0 20px 0;
 
     a {
-      color: #999;
+      color: #888;
       text-decoration: underline;
     }
   }

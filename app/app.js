@@ -1,8 +1,8 @@
-var app = angular.module('slacker', ['ngRoute', 'classy']);
+var app = angular.module('app', ['ngRoute', 'classy']);
 
 // Controllers
-require('./controllers/home_controller')(app);
-require('./controllers/company_controller')(app);
+require('./controllers/home-controller')(app);
+require('./controllers/company-controller')(app);
 
 // Routes
 app.config(['$routeProvider', function ($routeProvider) {
