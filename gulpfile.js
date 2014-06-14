@@ -127,6 +127,9 @@ gulp.task('run', [
   'server'
 ]);
 
-gulp.task('default', [
+gulp.task('build', [
   'js', 'css', 'html', 'images',
 ]);
+
+
+gulp.task('default', ['build']);
