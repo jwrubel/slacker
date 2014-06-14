@@ -9,11 +9,11 @@
 .sass-cache
 
 # Dependencies
-node_modules/**
-bower/**
+node_modules
+bower
 
 # Built assets
-build/**
+build
 
 # NPM Fails
 npm-debug.log
