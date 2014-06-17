@@ -10,7 +10,7 @@
     "request": "~2.35"
   },
   "devDependencies": {
-    "gulp": "~3.6",
+    "gulp": "3.x",
     "gulp-concat": "*",
     "gulp-uglify": "*",
     "gulp-browserify": "*",
