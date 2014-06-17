@@ -1,6 +1,7 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
-    request = require('request');
+    request = require('request'),
+    path = require('path');
 
 
 var server = express();
@@ -33,7 +34,12 @@ server.post('/create', function (req, res) {
   });
 });
 
-var port = process.env.PORT || 8080;
+server.use(function (req, res, next) {
+  var file = path.resolve(__dirname + '/../build/index.html');
+  return res.sendfile(file);
+});
+
+var port = process.env.SLACKER_PORT || 8080;
 server.listen(port);
 
 console.log("Server running on http://localhost:" + port);

@@ -2,7 +2,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     browserify = require('gulp-browserify'),
-    sass = require('gulp-ruby-sass'),
+    less = require('gulp-less'),
     minifycss = require('gulp-minify-css'),
     nodemon = require('gulp-nodemon'),
     clean = require('gulp-clean'),
@@ -25,7 +25,7 @@ gulp.task('js', function () {
   // Bower
   gulp.src(bower_components.js)
     .pipe(concat('bower.min.js'))
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest('build'))
     .on('end', livereload('.js'))
 
@@ -35,7 +35,7 @@ gulp.task('js', function () {
       console.log("\n\nError: " + error.message + "\n\n");
       return error;
     })
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(concat('app.min.js'))
     .pipe(gulp.dest('build'))
     .on('end', livereload('.js'))
@@ -51,8 +51,8 @@ gulp.task('css', function () {
     .on('end', livereload('.css'))
 
   // App
-  gulp.src('app/styles/app.scss')
-    .pipe(sass()).on('error', function (error) {
+  gulp.src('app/styles/app.less')
+    .pipe(less()).on('error', function (error) {
       console.log(error.message);
       return error;
     })
@@ -115,11 +115,13 @@ var livereload = function (_file) {
 
 gulp.task('watch', function() {
   livereloadServer = require('gulp-livereload')();
+
   gulp.watch(['app/**/*.js', 'bower_components/**/*.js'], ['js']);
-  gulp.watch(['app/**/*.scss', 'bower_components/**/*.css'], ['css']);
+  gulp.watch(['app/**/*.less', 'bower_components/**/*.css'], ['css']);
   gulp.watch(['app/**/*.html'], ['html']);
   gulp.watch(['app/**/*.png', 'app/**/*.jpg'], ['images']);
 });
+
 
 gulp.task('run', [
   'default',

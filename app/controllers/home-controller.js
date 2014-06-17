@@ -22,11 +22,8 @@ module.exports = function (app) {
 
     createCompany: function () {
       var data = btoa(JSON.stringify(this.$.company));
-
-      localStorage.setItem('company', data);
-
       this.$location.path('/' + data);
     }
   });
-  
+
 };

@@ -1,12 +1,15 @@
 module.exports = function (app) {
 
   app.classy.controller({
-    name: 'CompanyController', 
+    name: 'CompanyController',
     inject: ['$scope', '$http', '$routeParams'],
 
 
     init: function () {
-      this.$.company = JSON.parse(atob(this.$routeParams.data));
+      var data = this.$routeParams.data;
+      localStorage.setItem('company', data);
+
+      this.$.company = JSON.parse(atob(data));
       this.$.characters = require('../models/characters');
 
       // Key events
@@ -32,7 +35,7 @@ module.exports = function (app) {
 
     postMessage: function () {
       this.$.sending = true;
-      
+
       this.$http.post('/create', { url: this.$.company.url, message: this.$.message }).success(function (data) {
         this.$.hideMessage();
       }.bind(this));
