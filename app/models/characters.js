@@ -84,6 +84,12 @@ module.exports = [
     icon_url: 'http://i.imgur.com/4tGWkf1.png'
   },
   {
+    name: 'Teal\'c',
+    username: 'tealc',
+    default_text: 'Indeed',
+    icon_url: 'http://i.imgur.com/O1cmHrm.png'
+  },
+  {
     name: 'Yoda',
     username: 'yoda',
     default_text: 'Hmmmm, yes.',
