@@ -6,7 +6,7 @@ var express = require('express'),
 
 var server = express();
 server.use(bodyParser());
-server.use(express.static(__dirname + '/../build'));
+server.use(express.static(__dirname + '/../../build'));
 
 server.post('/create', function (req, res) {
   payload = {
@@ -35,7 +35,7 @@ server.post('/create', function (req, res) {
 });
 
 server.use(function (req, res, next) {
-  var file = path.resolve(__dirname + '/../build/index.html');
+  var file = path.resolve(__dirname + '/../../build/index.html');
   return res.sendfile(file);
 });
 

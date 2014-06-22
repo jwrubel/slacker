@@ -10,7 +10,7 @@
 
 # Dependencies
 node_modules
-bower
+bower_components
 
 # Built assets
 build

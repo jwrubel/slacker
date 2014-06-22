@@ -9,7 +9,7 @@
         <input id="filter" class="form-control search-control" type="text" ng-model="characterFilter.name" placeholder="Filter" />
       </div>
       <ul>
-        <li ng-repeat="character in characters | filter: characterFilter" ng-click="newMessage(character)" ng-class="{selected: character == message.character}">
+        <li ng-repeat="character in characters | filter: characterFilter" ng-click="companyService.newMessage(character)" ng-class="{selected: character == message.character}">
           <div class="character">
             <img ng-src="{{character.icon_url}}">
             {{ character.name }}
@@ -33,11 +33,13 @@
 
         <div class="sending" ng-show="sending">Sending...</div>
 
-        <form ng-show="!sending" ng-submit="postMessage()">
+        <form ng-show="!sending" ng-submit="companyService.postMessage()">
           <textarea id="message-text" ng-model="message.text" rows="5" placeholder="Hello"></textarea>
+
           <input type="text" ng-model="message.channel" placeholder="#general" />
-          <button class="btn btn-primary" type="submit">Post</button>
-          <button class="btn btn-default" type="button" ng-click="hideMessage()">Cancel</button>
+
+          <button class="btn btn-primary" type="submit">Post to {{message.channel || '#general'}}</button>
+          <button class="btn btn-default" type="button" ng-click="companyService.hideMessage()">Close</button>
         </form>
       </div>
     </div>

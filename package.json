@@ -10,6 +10,7 @@
     "request": "~2.35"
   },
   "devDependencies": {
+    "bower": "1.x",
     "gulp": "3.x",
     "gulp-concat": "*",
     "gulp-uglify": "*",
@@ -22,7 +23,7 @@
     "gulp-livereload": "*",
     "gulp-clean": "*",
     "gulp-exit": "*",
-    "gulp-htmlmin": "*"
+    "gulp-if": "*"
   },
   "scripts": {
     "postinstall": "bower install && gulp",

@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    gulpif = require('gulp-if'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     browserify = require('gulp-browserify'),
@@ -6,17 +7,19 @@ var gulp = require('gulp'),
     minifycss = require('gulp-minify-css'),
     nodemon = require('gulp-nodemon'),
     clean = require('gulp-clean'),
-    exit = require('gulp-exit'),
-    htmlmin = require('gulp-htmlmin');
+    exit = require('gulp-exit');
+
+var development = false;
 
 var bower_components = {
   js: [
-    './bower/angular/angular.js',
-    './bower/angular-route/angular-route.js',
-    './bower/angular-classy/angular-classy.js'
+    './bower_components/angular/angular.js',
+    './bower_components/angular-route/angular-route.js',
+    './bower_components/emitter.js/emitter.js',
+    './bower_components/klass/klass.js'
   ],
   css: [
-    './bower/bootstrap-css/css/bootstrap.css'
+    './bower_components/bootstrap-css/css/bootstrap.css'
   ]
 };
 
@@ -25,17 +28,20 @@ gulp.task('js', function () {
   // Bower
   gulp.src(bower_components.js)
     .pipe(concat('bower.min.js'))
-    // .pipe(uglify())
+    .pipe(gulpif(!development, uglify()))
     .pipe(gulp.dest('build'))
     .on('end', livereload('.js'))
 
-  // App
-  gulp.src('app/app.js')
+  // Client
+  gulp.src('app/client/client.js')
     .pipe(browserify({ debug: true })).on('error', function (error) {
       console.log("\n\nError: " + error.message + "\n\n");
       return error;
+    }).on('error', function(error) {
+      console.log(error);
+      return error;
     })
-    // .pipe(uglify())
+    .pipe(gulpif(!development, uglify()))
     .pipe(concat('app.min.js'))
     .pipe(gulp.dest('build'))
     .on('end', livereload('.js'))
@@ -45,18 +51,18 @@ gulp.task('js', function () {
 gulp.task('css', function () {
   // Bower
   gulp.src(bower_components.css)
-    .pipe(minifycss())
+    .pipe(gulpif(!development, minifycss()))
     .pipe(concat('bower.min.css'))
     .pipe(gulp.dest('build'))
     .on('end', livereload('.css'))
 
   // App
-  gulp.src('app/styles/app.less')
+  gulp.src('app/client/styles/app.less')
     .pipe(less()).on('error', function (error) {
       console.log(error.message);
       return error;
     })
-    .pipe(minifycss())
+    .pipe(gulpif(!development, minifycss()))
     .pipe(concat('app.min.css'))
     .pipe(gulp.dest('build'))
     .on('end', livereload('.css'))
@@ -65,21 +71,13 @@ gulp.task('css', function () {
 
 gulp.task('html', function () {
   gulp.src('app/views/*.html')
-    .pipe(htmlmin({
-      caseSensitive: true,
-      removeComments: true,
-      collapseWhitespace: true
-    })).on('error', function (error) {
-      console.log(error);
-      return error;
-    })
     .pipe(gulp.dest('build'))
     .on('end', livereload('.html'))
 });
 
 
 gulp.task('images', function () {
-  gulp.src('app/images/*')
+  gulp.src('app/client/images/*')
     .pipe(gulp.dest('build'))
     .on('end', livereload('.html'))
 });
@@ -87,7 +85,7 @@ gulp.task('images', function () {
 
 gulp.task('server', function () {
   nodemon({
-    script: 'app/server.js',
+    script: 'app/server/server.js',
     ext: 'js',
     ignore: ['gulpfile.js', 'scripts/*'],
     env: {
@@ -122,8 +120,12 @@ gulp.task('watch', function() {
   gulp.watch(['app/**/*.png', 'app/**/*.jpg'], ['images']);
 });
 
+gulp.task('develop', function () {
+  development = true;
+})
 
 gulp.task('run', [
+  'develop',
   'default',
   'watch',
   'server'
