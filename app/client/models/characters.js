@@ -20,7 +20,7 @@ module.exports = [
   {
     name: 'Darth Vader',
     username: 'darth_vader',
-    default_text: '*heavy breathing*',
+    default_text: '**heavy breathing**',
     icon_url: 'http://i.imgur.com/nFF8aMZ.png'
   },
   {

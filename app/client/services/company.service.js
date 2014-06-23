@@ -39,10 +39,12 @@ var CompanyService = Service.extend({
 
 
   postMessage: function () {
+    ga('send', 'event', 'button', 'click', 'post message');
+    
     this.scope.sending = true;
 
     this.scope.$http.post('/create', { url: this.scope.company.url, message: this.scope.message }).success(function (data) {
-      this.scope.hideMessage();
+      this.hideMessage();
     }.bind(this));
   },
 

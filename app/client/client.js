@@ -1,13 +1,17 @@
 var app = {
   scope: null,
-  inject: ['$scope', '$routeParams', '$http', '$location', 'homeService', 'companyService'],
 
+  inject: ['$scope', '$routeParams', '$http', '$location', 'homeService', 'companyService'],
   controller: function ($scope, $routeParams, $http, $location, homeService, companyService) {
     this.scope = app.scope = $scope;
 
     this.scope.$routeParams = $routeParams;
     this.scope.$http = $http;
     this.scope.$location = $location;
+
+    this.scope.$on('$viewContentLoaded', function () {
+      ga('send', 'pageview');
+    });
 
     this.scope.homeService = homeService;
     this.scope.companyService = companyService;
