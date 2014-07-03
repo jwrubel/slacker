@@ -1,7 +1,7 @@
 <div class="home">
   <div class="header">
     <h1>Slacker</h1>
-    <h2>Funny replies for <a href="https://slack.com/">Slack</a></h2>
+    <h2>Funny replies for <a href="https://slack.com/" target="_blank">Slack</a></h2>
   </div>
 
   <div class="signup">
@@ -12,10 +12,15 @@
       </div>
 
       <div class="form-group">
-        <input ng-model="company.name" class="form-control input-lg" placeholder="Company Name" autofocus="true" />
+        <label>Company name</label>
+        <input ng-model="company.name" class="form-control input-lg" placeholder="My Company" autofocus="true" />
       </div>
       <div class="form-group">
-        <input ng-model="company.url" class="form-control input-lg" placeholder="Webhooks URL" />
+        <label>Webhooks URL</label>
+        <input ng-model="company.url" class="form-control input-lg" placeholder="http://yourcompany.slack.com/services/hooks/incoming-webhook?token=yourtoken" />
+        <div class="help-block">
+          <a href="https://my.slack.com/services/new/incoming-webhook" target="_blank">You can get your Webhooks URL from here...</a>
+        </div>
       </div>
 
       <div class="form-group">
