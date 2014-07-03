@@ -94,5 +94,11 @@ module.exports = [
     username: 'yoda',
     default_text: 'Hmmmm, yes.',
     icon_url: 'http://i.imgur.com/gwpP78v.png'
+  },
+  {
+    name: 'Zoidberg',
+    username: 'zoidberg',
+    default_text: 'That was bad and you should feel bad.',
+    icon_url: 'http://i.imgur.com/XLt6zv1.png'
   }
 ]
