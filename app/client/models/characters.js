@@ -36,6 +36,18 @@ module.exports = [
     icon_url: 'http://i.imgur.com/nrpxhEu.png'
   },
   {
+    name: 'God',
+    username: 'god',
+    default_text: 'I work in mysterious ways.',
+    icon_url: 'http://i.imgur.com/kXWkKnx.png'
+  },
+  {
+    name: 'HAL 9000',
+    username: 'hal9000',
+    default_text: 'I\'m sorry Dave, I can\'t do that.',
+    icon_url: 'http://i.imgur.com/hkePqGh.png'
+  },
+  {
     name: 'Ian Malcolm',
     username: 'ian_malcolm',
     default_text: 'Life... uh... finds a way.',
