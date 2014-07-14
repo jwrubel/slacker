@@ -56,7 +56,7 @@ module.exports = [
   {
     name: 'James Bond',
     username: 'jamesbond',
-    default_text: 'Hello Moneypenny.',
+    default_text: 'You only live twice.',
     icon_url: 'http://i.imgur.com/GrcYQM8.png'
   },
   {
@@ -88,6 +88,12 @@ module.exports = [
     username: 'princess_leia',
     default_text: 'Aren\'t you a little short for a storm trooper?',
     icon_url: 'http://i.imgur.com/xhjtOum.png'
+  },
+  {
+    name: 'Ralph',
+    username: 'ralph',
+    default_text: 'Me fail English? That unpossible!',
+    icon_url: 'http://i.imgur.com/SwMY73j.png'
   },
   {
     name: 'Slowpoke',
