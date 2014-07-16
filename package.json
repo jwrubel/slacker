@@ -13,8 +13,10 @@
     "bower": "1.x",
     "gulp": "3.x",
     "gulp-concat": "*",
+    "gulp-streamify": "*",
     "gulp-uglify": "*",
-    "gulp-browserify": "*",
+    "browserify": "4.x",
+    "vinyl-source-stream": "*",
     "gulp-less": "*",
     "gulp-minify-css": "*",
     "gulp-rename": "*",
@@ -22,8 +24,7 @@
     "gulp-nodemon": "*",
     "gulp-livereload": "*",
     "gulp-clean": "*",
-    "gulp-exit": "*",
-    "gulp-if": "*"
+    "gulp-exit": "*"
   },
   "scripts": {
     "postinstall": "bower install && gulp",

@@ -1,15 +1,15 @@
 var gulp = require('gulp'),
-    gulpif = require('gulp-if'),
     concat = require('gulp-concat'),
+    streamify = require('gulp-streamify'),
     uglify = require('gulp-uglify'),
-    browserify = require('gulp-browserify'),
+    source = require('vinyl-source-stream'),
+    browserify = require('browserify'),
     less = require('gulp-less'),
     minifycss = require('gulp-minify-css'),
     nodemon = require('gulp-nodemon'),
     clean = require('gulp-clean'),
     exit = require('gulp-exit');
-
-var development = false;
+    
 
 var bower_components = {
   js: [
@@ -28,21 +28,18 @@ gulp.task('js', function () {
   // Bower
   gulp.src(bower_components.js)
     .pipe(concat('bower.min.js'))
-    .pipe(gulpif(!development, uglify()))
+    .pipe(uglify())
     .pipe(gulp.dest('build'))
     .on('end', livereload('.js'))
 
   // Client
-  gulp.src('app/client/client.js')
-    .pipe(browserify({ debug: true })).on('error', function (error) {
-      console.log("\n\nError: " + error.message + "\n\n");
-      return error;
-    }).on('error', function(error) {
-      console.log(error);
-      return error;
-    })
-    .pipe(gulpif(!development, uglify()))
-    .pipe(concat('app.min.js'))
+  browserify('./app/client/client.js').on('error', function(err) {
+    console.log(err);
+    return err;
+  }).bundle()
+    .pipe(source('./app/client/client.js'))
+    .pipe(streamify(uglify()))
+    .pipe(streamify(concat('app.min.js')))
     .pipe(gulp.dest('build'))
     .on('end', livereload('.js'))
 });
@@ -51,7 +48,7 @@ gulp.task('js', function () {
 gulp.task('css', function () {
   // Bower
   gulp.src(bower_components.css)
-    .pipe(gulpif(!development, minifycss()))
+    .pipe(minifycss())
     .pipe(concat('bower.min.css'))
     .pipe(gulp.dest('build'))
     .on('end', livereload('.css'))
@@ -62,7 +59,7 @@ gulp.task('css', function () {
       console.log(error.message);
       return error;
     })
-    .pipe(gulpif(!development, minifycss()))
+    .pipe(minifycss())
     .pipe(concat('app.min.css'))
     .pipe(gulp.dest('build'))
     .on('end', livereload('.css'))
@@ -120,12 +117,7 @@ gulp.task('watch', function() {
   gulp.watch(['app/**/*.png', 'app/**/*.jpg'], ['images']);
 });
 
-gulp.task('develop', function () {
-  development = true;
-})
-
 gulp.task('run', [
-  'develop',
   'default',
   'watch',
   'server'
