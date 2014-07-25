@@ -1,5 +1,11 @@
 module.exports = [
   {
+    name: 'Archer',
+    username: 'archer',
+    default_text: 'Phrasing!',
+    icon_url: 'http://i.imgur.com/CyIgnqi.png'
+  },
+  {
     name: 'Bender',
     username: 'bender',
     default_text: 'Bite my shiny metal ass!',
