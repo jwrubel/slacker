@@ -9,6 +9,17 @@
         <input id="filter" class="form-control search-control" type="text" ng-model="characterFilter.name" placeholder="Filter" />
       </div>
       <ul>
+        <li ng-click="companyService.newCharacter()">
+          <div class="character">
+            <img ng-src="/custom-character.png">
+          </div>
+        </li>
+        <li ng-repeat="character in customCharacters | filter: characterFilter" ng-click="companyService.newMessage(character)" ng-class="{selected: character == message.character}">
+          <div class="character">
+            <img ng-src="{{character.icon_url}}">
+            {{ character.name }}
+          </div>
+        </li>
         <li ng-repeat="character in characters | filter: characterFilter" ng-click="companyService.newMessage(character)" ng-class="{selected: character == message.character}">
           <div class="character">
             <img ng-src="{{character.icon_url}}">
@@ -19,11 +30,11 @@
     </div>
   </div>
 
-  <div class="panel pick-a-character" ng-show="!message">
+  <div class="panel pick-a-character" ng-if="!message && !customCharacter">
     Pick a character
   </div>
 
-  <div class="panel" ng-show="message">
+  <div class="panel" ng-if="message">
     <div class="new-message">
       <div class="character">
         <img ng-src="{{message.character.icon_url}}" />
@@ -40,6 +51,32 @@
 
           <button class="btn btn-primary" type="submit">Post to {{message.channel || '#general'}}</button>
           <button class="btn btn-default" type="button" ng-click="companyService.hideMessage()">Close</button>
+        </form>
+      </div>
+      <div class="delete-character" ng-if="message.character.custom">
+        <a href="" ng-click="companyService.deleteCustomCharacter(message.character)">Delete {{message.character.name}}</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="panel" ng-if="customCharacter">
+    <div class="custom-character">
+      <div class="character">
+        <img ng-src="{{customCharacter.icon_url || '/custom-character.png'}}" />
+      </div>
+      <div class="character-details">
+        <form ng-submit="companyService.saveCharacter()">
+          <div class="form-group">
+            <input id="custom-character-name" type="text" class="form-control" ng-model="customCharacter.name" placeholder="Name" />
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" ng-model="customCharacter.icon_url" placeholder="Image URL" />
+          </div>
+          
+          <div class="form-group">
+            <button class="btn btn-success" type="submit">Save</button>
+            <button class="btn btn-default" type="button" ng-click="companyService.cancelEditCharacter()">Cancel</button>
+          </div>
         </form>
       </div>
     </div>

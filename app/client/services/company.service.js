@@ -15,7 +15,15 @@ var CompanyService = Service.extend({
     localStorage.setItem('company', data);
 
     this.scope.company = JSON.parse(atob(data));
+    
+    // Load the default characters + your own
     this.scope.characters = require('../models/characters');
+    var customCharacters = localStorage.getItem('customCharacters');
+    if (customCharacters) {
+      this.scope.customCharacters = JSON.parse(customCharacters);
+    } else {
+      this.scope.customCharacters = [];
+    }
 
     // Key events
     window.onkeydown = function (event) {
@@ -52,6 +60,50 @@ var CompanyService = Service.extend({
   hideMessage: function () {
     this.scope.sending = false;
     this.scope.message = null;
+  },
+  
+  
+  
+  
+  newCharacter: function () {
+    this.scope.customCharacter = {
+      name: 'Name',
+      icon_url: ''
+    };
+    
+    setTimeout(function () { document.getElementById('custom-character-name').select()}, 1);
+  },
+  
+  
+  saveCharacter: function () {
+    // TODO: edit characters
+    
+    var character = this.scope.customCharacter;
+    character.username = character.name.replace(/[^a-zA-Z_]*/, '').toLowerCase();
+    character.default_text = '';
+    character.custom = true;
+    
+    this.scope.customCharacters.push(character);
+    localStorage.setItem('customCharacters', JSON.stringify(this.scope.customCharacters));
+    
+    this.scope.customCharacter = null;
+    
+    this.newMessage(character);
+  },
+  
+  
+  cancelEditCharacter: function () {
+    this.scope.customCharacter = null;
+  },
+  
+  
+  deleteCustomCharacter: function (character) {
+    if (confirm('Delete ' + character.name + '?')) {
+      this.scope.customCharacters.splice(this.scope.customCharacters.indexOf(character), 1);
+      localStorage.setItem('customCharacters', JSON.stringify(this.scope.customCharacters));
+      
+      this.hideMessage();
+    }
   }
 
 });
