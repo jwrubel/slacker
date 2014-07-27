@@ -65,7 +65,9 @@ var CompanyService = Service.extend({
   
   
   
-  newCharacter: function () {
+  newCustomCharacter: function () {
+    this.hideMessage();
+    
     this.scope.customCharacter = {
       name: 'Name',
       icon_url: ''
@@ -75,24 +77,33 @@ var CompanyService = Service.extend({
   },
   
   
-  saveCharacter: function () {
-    // TODO: edit characters
+  editCustomCharacter: function (character) {
+    this.scope.customCharacter = character;
     
+    setTimeout(function () { document.getElementById('custom-character-name').select()}, 1);
+  },
+  
+  
+  saveCustomCharacter: function () {
     var character = this.scope.customCharacter;
     character.username = character.name.replace(/[^a-zA-Z_]*/, '').toLowerCase();
-    character.default_text = '';
     character.custom = true;
     
-    this.scope.customCharacters.push(character);
+    // if character exists then save over it, or just add it to the list
+    if (this.scope.customCharacters.indexOf(character) > -1) {
+      this.scope.customCharacters[this.scope.customCharacters.indexOf(character)] = character;
+    } else {
+      this.scope.customCharacters.push(character);
+    }
+    
     localStorage.setItem('customCharacters', JSON.stringify(this.scope.customCharacters));
     
     this.scope.customCharacter = null;
-    
     this.newMessage(character);
   },
   
   
-  cancelEditCharacter: function () {
+  cancelEditCustomCharacter: function () {
     this.scope.customCharacter = null;
   },
   

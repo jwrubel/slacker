@@ -9,7 +9,7 @@
         <input id="filter" class="form-control search-control" type="text" ng-model="characterFilter.name" placeholder="Filter" />
       </div>
       <ul>
-        <li ng-click="companyService.newCharacter()">
+        <li ng-click="companyService.newCustomCharacter()">
           <div class="character">
             <img ng-src="/custom-character.png">
           </div>
@@ -53,8 +53,10 @@
           <button class="btn btn-default" type="button" ng-click="companyService.hideMessage()">Close</button>
         </form>
       </div>
-      <div class="delete-character" ng-if="message.character.custom">
-        <a href="" ng-click="companyService.deleteCustomCharacter(message.character)">Delete {{message.character.name}}</a>
+      <div class="character-actions" ng-if="message.character.custom">
+        <a href="" ng-click="companyService.editCustomCharacter(message.character)">Edit</a>
+        -
+        <a href="" ng-click="companyService.deleteCustomCharacter(message.character)">Delete</a>
       </div>
     </div>
   </div>
@@ -65,17 +67,20 @@
         <img ng-src="{{customCharacter.icon_url || '/custom-character.png'}}" />
       </div>
       <div class="character-details">
-        <form ng-submit="companyService.saveCharacter()">
+        <form ng-submit="companyService.saveCustomCharacter(customCharacter)">
           <div class="form-group">
             <input id="custom-character-name" type="text" class="form-control" ng-model="customCharacter.name" placeholder="Name" />
           </div>
           <div class="form-group">
             <input type="text" class="form-control" ng-model="customCharacter.icon_url" placeholder="Image URL" />
           </div>
+          <div class="form-group">
+            <input type="text" class="form-control" ng-model="customCharacter.default_text" placeholder="Default message" />
+          </div>
           
           <div class="form-group">
             <button class="btn btn-success" type="submit">Save</button>
-            <button class="btn btn-default" type="button" ng-click="companyService.cancelEditCharacter()">Cancel</button>
+            <button class="btn btn-default" type="button" ng-click="companyService.cancelEditCustomCharacter()">Cancel</button>
           </div>
         </form>
       </div>

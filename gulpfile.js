@@ -37,6 +37,10 @@ gulp.task('js', function () {
     console.log(err);
     return err;
   }).bundle()
+    .on('error', function (err) {
+      console.log(err);
+      return err;
+    })
     .pipe(source('./app/client/client.js'))
     .pipe(streamify(uglify()))
     .pipe(streamify(concat('app.min.js')))
