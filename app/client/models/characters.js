@@ -90,6 +90,12 @@ module.exports = [
     icon_url: 'http://i.imgur.com/LkiiVUH.png'
   },
   {
+    name: 'Picard',
+    username: 'picard',
+    default_text: 'Make it so!',
+    icon_url: 'http://i.imgur.com/6p75aZY.png'
+  },
+  {
     name: 'Princess Leia',
     username: 'princess_leia',
     default_text: 'Aren\'t you a little short for a storm trooper?',
@@ -112,6 +118,12 @@ module.exports = [
     username: 'tealc',
     default_text: 'Indeed',
     icon_url: 'http://i.imgur.com/O1cmHrm.png'
+  },
+  {
+    name: 'Tina',
+    username: 'tina',
+    default_text: 'Errrggggggg',
+    icon_url: 'http://i.imgur.com/VxDC1dz.png'
   },
   {
     name: 'Yoda',
