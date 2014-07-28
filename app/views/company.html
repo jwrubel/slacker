@@ -15,7 +15,7 @@
           </div>
         </li>
         <li ng-repeat="character in customCharacters | filter: characterFilter" ng-click="companyService.newMessage(character)" ng-class="{selected: character == message.character}">
-          <div class="character">
+          <div class="character custom">
             <img ng-src="{{character.icon_url}}">
             {{ character.name }}
           </div>
@@ -69,7 +69,7 @@
       <div class="character-details">
         <form ng-submit="companyService.saveCustomCharacter(customCharacter)">
           <div class="form-group">
-            <input id="custom-character-name" type="text" class="form-control" ng-model="customCharacter.name" placeholder="Name" />
+            <input id="custom-character-name" type="text" class="form-control" ng-model="customCharacter.name" placeholder="Name" maxlength="30" />
           </div>
           <div class="form-group">
             <input type="text" class="form-control" ng-model="customCharacter.icon_url" placeholder="Image URL" />
@@ -81,6 +81,10 @@
           <div class="form-group">
             <button class="btn btn-success" type="submit">Save</button>
             <button class="btn btn-default" type="button" ng-click="companyService.cancelEditCustomCharacter()">Cancel</button>
+          </div>
+          
+          <div class="form-group help-block">
+            Custom characters are only saved for you (when you use this browser).
           </div>
         </form>
       </div>

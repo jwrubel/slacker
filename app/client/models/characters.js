@@ -12,12 +12,6 @@ module.exports = [
     icon_url: 'http://i.imgur.com/ujLzN83.png'
   },
   {
-    name: 'Bill Lumbergh',
-    username: 'bill_lumbergh',
-    default_text: 'Heeeey Peter. What\'s happening?',
-    icon_url: 'http://i.imgur.com/kzQzqgQ.png'
-  },
-  {
     name: 'Consuela',
     username: 'consuela',
     default_text: 'No... no...',
@@ -26,7 +20,7 @@ module.exports = [
   {
     name: 'Darth Vader',
     username: 'darth_vader',
-    default_text: '**heavy breathing**',
+    default_text: 'I find your lack of faith disturbing.',
     icon_url: 'http://i.imgur.com/nFF8aMZ.png'
   },
   {
@@ -36,8 +30,8 @@ module.exports = [
     icon_url: 'http://i.imgur.com/nowR2aL.png'
   },
   {
-    name: 'Erlich Bachman',
-    username: 'erlich_bachman',
+    name: 'Erlich',
+    username: 'erlich',
     default_text: 'I own 10%',
     icon_url: 'http://i.imgur.com/nrpxhEu.png'
   },
@@ -62,8 +56,20 @@ module.exports = [
   {
     name: 'James Bond',
     username: 'jamesbond',
-    default_text: 'You only live twice.',
+    default_text: 'The name\'s Bond. James Bond.',
     icon_url: 'http://i.imgur.com/GrcYQM8.png'
+  },
+  {
+    name: 'Leia',
+    username: 'leia',
+    default_text: 'You have your moments. Not many of them, but you do have them.',
+    icon_url: 'http://i.imgur.com/xhjtOum.png'
+  },
+  {
+    name: 'Lumbergh',
+    username: 'lumbergh',
+    default_text: 'That\'d be greaaat.',
+    icon_url: 'http://i.imgur.com/kzQzqgQ.png'
   },
   {
     name: 'Macgyver',
@@ -72,8 +78,8 @@ module.exports = [
     icon_url: 'http://i.imgur.com/P7qmT5w.png'
   },
   {
-    name: 'Marge Simpson',
-    username: 'marge_simpson',
+    name: 'Marge',
+    username: 'marge',
     default_text: 'Mmmmm',
     icon_url: 'http://i.imgur.com/Jpl5mCd.png'
   },
@@ -94,12 +100,6 @@ module.exports = [
     username: 'picard',
     default_text: 'Make it so!',
     icon_url: 'http://i.imgur.com/6p75aZY.png'
-  },
-  {
-    name: 'Princess Leia',
-    username: 'princess_leia',
-    default_text: 'Aren\'t you a little short for a storm trooper?',
-    icon_url: 'http://i.imgur.com/xhjtOum.png'
   },
   {
     name: 'Ralph',
