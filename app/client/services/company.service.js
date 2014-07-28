@@ -36,6 +36,8 @@ var CompanyService = Service.extend({
 
 
   newMessage: function (character) {
+    if (this.scope.customCharacter) return;
+    
     this.scope.message = {
       character: character,
       text: character.default_text,
@@ -51,9 +53,14 @@ var CompanyService = Service.extend({
     
     this.scope.sending = true;
 
-    this.scope.$http.post('/create', { url: this.scope.company.url, message: this.scope.message }).success(function (data) {
-      this.hideMessage();
-    }.bind(this));
+    this.scope.$http.post('/create', { url: this.scope.company.url, message: this.scope.message })
+      .success(function (data) {
+        this.hideMessage();
+      }.bind(this))
+      .error(function (data) {
+        alert('Your message could not be posted.');
+        this.scope.sending = false;
+      }.bind(this));
   },
 
 
