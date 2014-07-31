@@ -1,194 +1,196 @@
-.details {
-  width: 50%;
-  min-width: 320px;
-  padding: 20px;
-}
+.company {
+  .details {
+    width: 50%;
+    min-width: 320px;
+    padding: 20px;
+  }
 
-.about {
-  color: #ff8000;
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-
-  a {
+  .about {
     color: #ff8000;
-    text-decoration: underline;
-  }
-}
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
 
-
-.panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  background: #eee;
-  border-left: 1px solid #ccc;
-  padding: 20px;
-}
-
-h1 {
-  margin: 0;
-  font-weight: normal;
-  font-size: 25px;
-  margin-bottom: 25px;
-
-  a {
-    color: #999;
-
-    &:hover {
-      color: #666;
-      text-decoration: none;
-    }
-  }
-}
-
-
-.filter {
-  margin-bottom: 20px;
-}
-
-
-ul {
-  list-style: none;
-  margin: 0;
-  margin-left: -15px;
-  padding: 0;
-  width: 100%;
-  overflow: hidden;
-
-  li {
-    float: left;
-    width: 80px;
-    margin: 0 15px 20px 15px;
-
-    transition: all 0.2s ease;
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-  }
-}
-
-
-.pick-a-character {
-  background: url('pick-a-character.png') no-repeat 30px 150px #eee;
-  padding-top: 220px;
-  padding-left: 40px;
-  font-size: 30px;
-  color: #999;
-  font-family: "Gloria Hallelujah";
-}
-
-
-.character {
-  text-align: center;
-  cursor: pointer;
-  min-height: 155px;
-  
-  &.custom {
-    color: #060;
-  }
-
-  img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-  }
-}
-
-.selected {
-  opacity: 0.2;
-}
-
-.new-message {
-  .character {
-    float: left;
-    margin-right: 10px;
-    border-radius: 5px;
-    
-    img {
-      width: 100px;
-      height: 100px;
-    }
-  }
-
-  .message {
-    margin-left: 120px;
-    background: #333;
-    border-radius: 6px;
-    padding: 10px;
-    position: relative;
-
-    .arrow {
-      position: absolute;
-      top: 40px;
-      left: -20px;
-      width: 0;
-      height: 0;
-      border: 10px solid #333;
-      border-color: transparent #333 transparent transparent;
-    }
-
-    .sending {
-      font-family: "Gloria Hallelujah";
-      font-size: 20px;
-      color: #999;
-      text-align: center;
-      padding: 50px;
-    }
-
-    textarea, input {
-      background: transparent;
-      color: white;
-    }
-
-    textarea {
-      border: none;
-      width: 100%;
-      outline: none;
-      font-family: "Gloria Hallelujah";
-      font-size: 20px;
-      margin-bottom: 5px;
-    }
-
-    input {
-      border: none;
-      width: 100%;
-      outline: none;
-      margin-bottom: 10px;
-      opacity: 0.6;
-    }
-  }
-  
-  .character-actions {
-    margin-top: 10px;
-    padding-right: 10px;
-    text-align: right;
-    color: #999;
-    
     a {
-      color: #333;
+      color: #ff8000;
+      text-decoration: underline;
     }
   }
-}
 
-.custom-character {
-  .character {
-    float: left;
-    margin-right: 10px;
-    border-radius: 5px;
-    
-    img {
-      width: 100px;
-      height: 100px;
+
+  .panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: #eee;
+    border-left: 1px solid #ccc;
+    padding: 20px;
+  }
+
+  h1 {
+    margin: 0;
+    font-weight: normal;
+    font-size: 25px;
+    margin-bottom: 25px;
+
+    a {
+      color: #999;
+
+      &:hover {
+        color: #666;
+        text-decoration: none;
+      }
     }
   }
-  
-  .character-details {
-    margin-left: 120px;
-    padding: 10px;
-    position: relative;
+
+
+  .filter {
+    margin-bottom: 20px;
+  }
+
+
+  ul {
+    list-style: none;
+    margin: 0;
+    margin-left: -15px;
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+
+    li {
+      float: left;
+      width: 80px;
+      margin: 0 15px 20px 15px;
+
+      transition: all 0.2s ease;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+    }
+  }
+
+
+  .pick-a-character {
+    background: url('pick-a-character.png') no-repeat 30px 150px #eee;
+    padding-top: 220px;
+    padding-left: 40px;
+    font-size: 30px;
+    color: #999;
+    font-family: "Gloria Hallelujah";
+  }
+
+
+  .character {
+    text-align: center;
+    cursor: pointer;
+    min-height: 155px;
+    
+    &.custom {
+      color: #060;
+    }
+
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+  }
+
+  .selected {
+    opacity: 0.2;
+  }
+
+  .new-message {
+    .character {
+      float: left;
+      margin-right: 10px;
+      border-radius: 5px;
+      
+      img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    .message {
+      margin-left: 120px;
+      background: #333;
+      border-radius: 6px;
+      padding: 10px;
+      position: relative;
+
+      .arrow {
+        position: absolute;
+        top: 40px;
+        left: -20px;
+        width: 0;
+        height: 0;
+        border: 10px solid #333;
+        border-color: transparent #333 transparent transparent;
+      }
+
+      .sending {
+        font-family: "Gloria Hallelujah";
+        font-size: 20px;
+        color: #999;
+        text-align: center;
+        padding: 50px;
+      }
+
+      textarea, input {
+        background: transparent;
+        color: white;
+      }
+
+      textarea {
+        border: none;
+        width: 100%;
+        outline: none;
+        font-family: "Gloria Hallelujah";
+        font-size: 20px;
+        margin-bottom: 5px;
+      }
+
+      input {
+        border: none;
+        width: 100%;
+        outline: none;
+        margin-bottom: 10px;
+        opacity: 0.6;
+      }
+    }
+    
+    .character-actions {
+      margin-top: 10px;
+      padding-right: 10px;
+      text-align: right;
+      color: #999;
+      
+      a {
+        color: #333;
+      }
+    }
+  }
+
+  .custom-character {
+    .character {
+      float: left;
+      margin-right: 10px;
+      border-radius: 5px;
+      
+      img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+    
+    .character-details {
+      margin-left: 120px;
+      padding: 10px;
+      position: relative;
+    }
   }
 }

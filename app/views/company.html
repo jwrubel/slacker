@@ -14,7 +14,7 @@
             <img ng-src="/custom-character.png">
           </div>
         </li>
-        <li ng-repeat="character in customCharacters | filter: characterFilter" ng-click="companyService.newMessage(character)" ng-class="{selected: character == message.character}">
+        <li ng-repeat="character in customCharacters | filter: characterFilter track by $index" ng-click="companyService.newMessage(character)" ng-class="{selected: character == message.character}">
           <div class="character custom">
             <img ng-src="{{character.icon_url}}">
             {{ character.name }}

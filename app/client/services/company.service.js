@@ -93,7 +93,7 @@ var CompanyService = Service.extend({
   
   saveCustomCharacter: function () {
     var character = this.scope.customCharacter;
-    character.username = character.name.replace(/[^a-zA-Z_]*/, '').toLowerCase();
+    character.username = character.name.replace(/[^a-zA-Z_'"\s!@#$%^&*()-+=?]*/, '');
     character.custom = true;
     
     // if character exists then save over it, or just add it to the list
