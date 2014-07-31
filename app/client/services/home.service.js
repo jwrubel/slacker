@@ -13,8 +13,6 @@ var HomeService = Service.extend(function () {
 
   init: function () {
     this.supr();
-    
-    this.scope.characters = require('../models/characters');
 
     this.scope.company = {
       name: '',

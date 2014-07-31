@@ -1,12 +1,12 @@
 <div class="home">
   <div class="header">
     <h1>Slacker</h1>
-    <h2>Funny replies for <a href="https://slack.com/" target="_blank">Slack</a></h2>
+    <h2>Post funny replies to <a href="https://slack.com/" target="_blank">Slack</a> as your favourite character.</h2>
   </div>
 
   <div class="signup">
     <form ng-submit="homeService.createCompany()">
-      <div class="previous-company" ng-show="previousCompany">
+      <div class="previous-company" ng-if="previousCompany">
         <a ng-href="/{{previousCompany.data}}" class="btn btn-success btn-lg btn-block">Go back to {{previousCompany.name}}</a>
         <p>or</p>
       </div>
@@ -31,17 +31,21 @@
   
   <div class="info">
     <div class="info-content">
-      <h3>Theres a bunch of built in characters...</h3>
-      <ul>
-        <li ng-repeat="character in characters">
-          <img ng-src="{{character.icon_url}}">
-        </li>
-      </ul>
-      <h3 class="text-right">...but you can also add your own!</h3>
+      <div class="row">
+        <div class="col-sm-6">
+          <h3>There's over 20 built in characters</h3>
+          <a href="home-pick-character.png" target="_blank"><img src="home-pick-character.png" /></a>
+        </div>
+        
+        <div class="col-sm-6">
+          <h3>You can add your own characters too!</h3>
+          <a href="home-custom-character.png" target="_blank"><img src="home-custom-character.png" /></a>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="footer">
-    Made with love by <a href="http://nathanhoad.net">Nathan Hoad</a>. Sponsored by <a href="http://ngutechnology.com.au">NGU Technology</a>
+    Made with love by <a href="http://nathanhoad.net/">Nathan Hoad</a>. Sponsored by <a href="http://ngutechnology.com.au">NGU Technology</a>
   </div>
 </div>
