@@ -102,6 +102,12 @@ module.exports = [
     icon_url: 'http://i.imgur.com/LkiiVUH.png'
   },
   {
+    name: 'Pepper Brooks',
+    username: 'Pepper Brooks',
+    default_text: 'That\'s a bold strategy, Cotton. Let\'s see if it pays off.',
+    icon_url: 'http://i.imgur.com/5p9HfYi.png'
+  },
+  {
     name: 'Picard',
     username: 'Picard',
     default_text: 'Make it so!',
