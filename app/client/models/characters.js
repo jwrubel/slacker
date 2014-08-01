@@ -60,6 +60,12 @@ module.exports = [
     icon_url: 'http://i.imgur.com/GrcYQM8.png'
   },
   {
+    name: 'Kanye',
+    username: 'Kanye',
+    default_text: 'Imma let you finish...',
+    icon_url: 'http://i.imgur.com/3XCE47J.png'
+  },
+  {
     name: 'Leia',
     username: 'Leia',
     default_text: 'You have your moments. Not many of them, but you do have them.',
