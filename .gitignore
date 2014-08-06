@@ -15,5 +15,5 @@ bower_components
 # Built assets
 build
 
-# NPM Fails
-npm-debug.log
+# Logs
+*.log

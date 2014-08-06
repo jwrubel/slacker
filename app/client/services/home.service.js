@@ -30,7 +30,7 @@ var HomeService = Service.extend(function () {
 
   createCompany: function () {
     var data = btoa(JSON.stringify(this.scope.company));
-    this.scope.$location.path('/' + data);
+    this.scope.$location.path('/' + encodeURIComponent(data));
   }
 
 });

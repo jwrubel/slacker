@@ -24,6 +24,6 @@ If you want to make modifications, you will need to rebuild the webapp with:
     gulp
 
 
-Watch for file changes with:
+Run the server and watch for file changes with:
 
     gulp run

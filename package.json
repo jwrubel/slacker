@@ -1,9 +1,9 @@
 {
   "name": "Slacker",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A simple app for sending joke messages to Slack",
   "author": "Nathan Hoad",
-  "main": "app/server.js",
+  "main": "app/server/server.js",
   "dependencies": {
     "express": "~4.1",
     "body-parser": "~1.1",
@@ -28,10 +28,10 @@
   },
   "scripts": {
     "postinstall": "bower install && gulp",
-    "start": "node app/server.js"
+    "start": "node app/server/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:nathanhoad/slacker.git"
+    "url": "git@github.com:nathanhoad/slacker.git"
   }
 }

@@ -10,8 +10,10 @@ var CompanyService = Service.extend({
 
   init: function () {
     this.supr();
+    
+    window.scrollTo(0,0);
 
-    var data = this.scope.$routeParams.data;
+    var data = decodeURIComponent(this.scope.$routeParams.data);
     localStorage.setItem('company', data);
 
     this.scope.company = JSON.parse(atob(data));
