@@ -138,6 +138,12 @@ module.exports = [
     icon_url: 'http://i.imgur.com/VxDC1dz.png'
   },
   {
+    name: 'Tyler Durden',
+    username: 'Tyler Durden',
+    default_text: 'You wanna make an omelet, you gotta break some eggs.',
+    icon_url: 'http://i.imgur.com/yobU0zo.png'
+  },
+  {
     name: 'Yoda',
     username: 'Yoda',
     default_text: 'Hmmmm, yes.',
