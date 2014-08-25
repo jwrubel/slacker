@@ -7,7 +7,8 @@
   "dependencies": {
     "express": "~4.1",
     "body-parser": "~1.1",
-    "request": "~2.35"
+    "request": "~2.35",
+    "qs": "~1.2"
   },
   "devDependencies": {
     "bower": "1.x",

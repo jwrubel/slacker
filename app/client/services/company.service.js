@@ -18,6 +18,12 @@ var CompanyService = Service.extend({
 
     this.scope.company = JSON.parse(atob(data));
     
+    if (this.scope.company.url.indexOf('slack') > -1) {
+      this.scope.defaultChannel = '#general';
+    } else {
+      this.scope.defaultChannel = '';
+    }
+    
     // Load the default characters + your own
     this.scope.characters = require('../models/characters');
     var customCharacters = localStorage.getItem('customCharacters');
@@ -43,7 +49,7 @@ var CompanyService = Service.extend({
     this.scope.message = {
       character: character,
       text: character.default_text,
-      channel: ''
+      channel: this.scope.defaultChannel
     }
     // Select the message text
     setTimeout(function () { document.getElementById('message-text').select()}, 1);
@@ -52,6 +58,13 @@ var CompanyService = Service.extend({
 
   postMessage: function () {
     ga('send', 'event', 'button', 'click', 'post message');
+    
+    if (this.scope.message.channel == '') {
+      alert('You need to specify the room/channel.');
+      document.getElementById('message-channel').select();
+    }
+    
+    this.scope.defaultChannel = this.scope.message.channel;
     
     this.scope.sending = true;
 

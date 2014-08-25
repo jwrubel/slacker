@@ -47,7 +47,7 @@
         <form ng-show="!sending" ng-submit="companyService.postMessage()">
           <textarea id="message-text" ng-model="message.text" rows="5" placeholder="Hello"></textarea>
 
-          <input type="text" ng-model="message.channel" placeholder="#general" />
+          <input id="message-channel" type="text" ng-model="message.channel" placeholder="room/channel" />
 
           <button class="btn btn-primary" type="submit">Post to {{message.channel || '#general'}}</button>
           <button class="btn btn-default" type="button" ng-click="companyService.hideMessage()">Close</button>
