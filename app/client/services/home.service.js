@@ -13,11 +13,13 @@ var HomeService = Service.extend(function () {
 
   init: function () {
     this.supr();
-
+    
+    this.scope.errors = {};
     this.scope.company = {
       name: '',
       url: ''
     };
+    this.scope.service = 'slack';
 
     // Check for a previous company
     var data = localStorage.getItem('company');
@@ -29,6 +31,8 @@ var HomeService = Service.extend(function () {
   
   
   pickService: function (service) {
+    this.scope.service = service;
+    
     if (service == 'slack') {
       document.getElementById('slack-url').style.display = 'block';
       document.getElementById('slack-tab').className = 'active';
@@ -48,6 +52,12 @@ var HomeService = Service.extend(function () {
 
 
   createCompany: function () {
+    if (this.scope.company.url == '') {
+      this.scope.errors.url = 'is missing';
+      document.getElementById(this.scope.service + '-url-input').focus();
+      return;
+    }
+    
     // Detect HipChat API key
     if (this.scope.company.url.indexOf('http') == -1) {
       this.scope.company.url = "https://api.hipchat.com/v1/rooms/message?format=json&auth_token=" + this.scope.company.url;

@@ -27,16 +27,16 @@
         </ul>
       </div>
       
-      <div class="form-group" id="slack-url">
-        <label>Slack Webhooks URL</label>
+      <div class="form-group" id="slack-url" ng-class="{'has-error': errors.url}">
+        <label class="control-label">Slack Webhooks URL <span class="error" ng-if="errors.url">{{errors.url}}</span></label>
         <input id="slack-url-input" ng-model="company.url" class="form-control input-lg" placeholder="http://yourcompany.slack.com/services/hooks/incoming-webhook?token=yourtoken" />
         <div class="help-block">
           <a href="https://my.slack.com/services/new/incoming-webhook" target="_blank">You can get your Webhooks URL by clicking here.</a>
         </div>
       </div>
       
-      <div class="form-group" id="hipchat-url" style="display: none">
-        <label>HipChat API token</label>
+      <div class="form-group" id="hipchat-url" style="display: none" ng-class="{'has-error': errors.url}">
+        <label class="control-label">HipChat API token <span class="error" ng-if="errors.url">{{errors.url}}</span></label>
         <input id="hipchat-url-input" ng-model="company.url" class="form-control input-lg" />
         <div class="help-block">
           <a href="https://www.hipchat.com/admin/api" target="_blank">You can get your HipChat API token by clicking here.</a>
