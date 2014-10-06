@@ -12,22 +12,27 @@ server.use(express.static(__dirname + '/../../build'));
 
 server.post('/create', function (req, res) {
   var options = {
-    url: req.body.url,
     method: "POST"
   };
   
-  if (req.body.url.indexOf('slack') > -1) {
+  if (req.body.company.slack) {
     if (req.body.message.channel.indexOf('#') != 0) {
       req.body.message.channel = '#' + req.body.message.channel;
     }
     
-    options.body = JSON.stringify({
-      channel: (req.body.message.channel == '' ? '#general' : req.body.message.channel),
+    var params = QS.stringify({
+      token: req.body.company.slack,
+      channel: (req.body.message.channel == '' ? 'general' : req.body.message.channel),
       username: req.body.message.character.username,
       icon_url: req.body.message.character.icon_url,
       text: req.body.message.text
     });
-  } else if (req.body.url.indexOf('hipchat') > -1) {
+    
+    options.url = 'https://slack.com/api/chat.postMessage?' + params;
+    
+  } else if (req.body.company.hipchat) {
+    options.url = 'https://api.hipchat.com/v1/rooms/message?format=json&auth_token=' + req.body.company.hipchat;
+    
     options.body = QS.stringify({
       room_id: req.body.message.channel,
       from: req.body.message.character.username,
@@ -37,6 +42,7 @@ server.post('/create', function (req, res) {
       color: "gray",
       format: "json"
     });
+    
     options.headers = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }

@@ -30,11 +30,25 @@
     </div>
   </div>
 
-  <div class="panel pick-a-character" ng-if="!message && !customCharacter">
+  <div class="panel pick-a-character" ng-if="!message && !customCharacter && !company.url">
     Pick a character
   </div>
+  
+  <div class="panel" ng-if="company.url">
+    <div class="alert alert-success">
+      <p style="font-size: 24px;">Slacker has been updated!</p>
+      <p>For Slack users, using Webhooks is no longer supported. We now use API Tokens, Yay!</p>
+      <p>By using API Tokens instead of webhooks Slacker gets some extra powers:</p>
+      <ol>
+        <li>It can give you a list of rooms you can post to so you don't have to type them out manually like some kind of peasant</li>
+        <li>It makes it easy to clone your team mates (and give them cool moustaches with Moustachify.me)</li>
+      </ol>
+      <p>For HipChat users, nothing much will change - due to limitations in HipChat's V2 API, neither of these features are available to HipChat people... for now.</p>
+      <p><a href="/" class="alert-link">Jump back home to re-set up your account.</a></p>
+    </div>
+  </div>
 
-  <div class="panel" ng-if="message">
+  <div class="panel" ng-if="message && !company.url">
     <div class="new-message">
       <div class="character">
         <img ng-src="{{message.character.icon_url}}" />
@@ -44,13 +58,24 @@
 
         <div class="sending" ng-show="sending">Sending...</div>
 
-        <form ng-show="!sending" ng-submit="companyService.postMessage()">
+        <form ng-show="!sending" ng-submit="companyService.postMessage()" class="form-horizontal">
           <textarea id="message-text" ng-model="message.text" rows="5" placeholder="Hello"></textarea>
-
-          <input id="message-channel" type="text" ng-model="message.channel" placeholder="room/channel" />
-
-          <button class="btn btn-primary" type="submit">Post to {{message.channel || '#general'}}</button>
-          <button class="btn btn-default" type="button" ng-click="companyService.hideMessage()">Close</button>
+          
+          <div class="form-group">
+            <div class="col-sm-4">
+              <div ng-if="channels">
+                <select id="message-channel" ng-model="message.channel" ng-options="channel as channel.name for channel in channels" class="form-control input-sm"></select>
+              </div>
+              <div ng-if="!channels">
+                <input id="message-channel" type="text" class="form-control" ng-model="message.channel" placeholder="room/channel" />
+              </div>
+            </div>
+            
+            <div class="col-sm-8" style="text-align:right">
+              <button class="btn btn-primary" type="submit">Post!</button>
+              <button class="btn btn-default" type="button" ng-click="companyService.hideMessage()">Close</button>
+            </div>
+          </div>
         </form>
       </div>
       <div class="character-actions" ng-if="message.character.custom">
@@ -61,7 +86,7 @@
     </div>
   </div>
   
-  <div class="panel" ng-if="customCharacter">
+  <div class="panel" ng-if="customCharacter && !company.url">
     <div class="custom-character">
       <div class="character">
         <img ng-src="{{customCharacter.icon_url || '/custom-character.png'}}" />
@@ -85,6 +110,18 @@
           
           <div class="form-group help-block">
             Custom characters are only saved for you (when you use this browser).
+          </div>
+          
+          <div ng-if="teamMembers" class="form-group">
+            <hr />
+            <p>Clone a current team member:</p>
+            <div class="row">
+              <div class="col-sm-6">
+                <select class="form-control" ng-model="cloneTarget" ng-change="companyService.cloneTeamMember(this.cloneTarget)" ng-options="teamMember as teamMember.name for teamMember in teamMembers">
+                  <option value=""></option>
+                </select>
+              </div>
+            </div>
           </div>
         </form>
       </div>

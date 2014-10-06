@@ -27,19 +27,22 @@
         </ul>
       </div>
       
-      <div class="form-group" id="slack-url" ng-class="{'has-error': errors.url}">
-        <label class="control-label">Slack Webhooks URL <span class="error" ng-if="errors.url">{{errors.url}}</span></label>
-        <input id="slack-url-input" ng-model="company.url" class="form-control input-lg" placeholder="http://yourcompany.slack.com/services/hooks/incoming-webhook?token=yourtoken" />
+      <div class="form-group" id="slack-token" ng-class="{'has-error': errors.token}">
+        <label class="control-label">Slack API Token <span class="error" ng-if="errors.token">{{errors.token}}</span></label>
+        <input id="slack-token-input" ng-model="company.token" class="form-control input-lg" />
         <div class="help-block">
-          <a href="https://my.slack.com/services/new/incoming-webhook" target="_blank">You can get your Webhooks URL by clicking here.</a>
+          <a href="https://api.slack.com/" target="_blank">You can get a Slack API Token from https://api.slack.com</a>
         </div>
       </div>
       
-      <div class="form-group" id="hipchat-url" style="display: none" ng-class="{'has-error': errors.url}">
-        <label class="control-label">HipChat API token <span class="error" ng-if="errors.url">{{errors.url}}</span></label>
-        <input id="hipchat-url-input" ng-model="company.url" class="form-control input-lg" />
+      <div class="form-group" id="hipchat-token" style="display: none" ng-class="{'has-error': errors.token}">
+        <label class="control-label">HipChat API token <span class="error" ng-if="errors.token">{{errors.token}}</span></label>
+        <input id="hipchat-token-input" ng-model="company.token" class="form-control input-lg" />
         <div class="help-block">
-          <a href="https://www.hipchat.com/admin/api" target="_blank">You can get your HipChat API token by clicking here.</a>
+          <a href="https://www.hipchat.com/admin/api" target="_blank">You can get a HipChat API token from https://www.hipchat.com/admin/api</a>
+        </div>
+        <div class="help-block">
+          Currently only Version 1 of the Hipchat API has the ability to send Slacker messages.
         </div>
       </div>
 

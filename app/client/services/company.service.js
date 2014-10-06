@@ -18,9 +18,27 @@ var CompanyService = Service.extend({
 
     this.scope.company = JSON.parse(atob(data));
     
-    if (this.scope.company.url.indexOf('slack') > -1) {
-      this.scope.defaultChannel = '#general';
-    } else {
+    this.scope.channels = null;
+    this.scope.teamMembers = null;
+    
+    if (this.scope.company.slack) {
+      // Get channels
+      this.scope.$http.get('https://slack.com/api/channels.list?token=' + this.scope.company.slack)
+        .success(function (data) {
+          this.scope.channels = data.channels;
+          this.scope.defaultChannel = this.scope.channels[0];
+        }.bind(this));
+      // Get team members
+      this.scope.$http.get('https://slack.com/api/users.list?token=' + this.scope.company.slack)
+        .success(function (data) {
+          this.scope.teamMembers = data.members;
+          this.scope.cloneTarget = null;
+        }.bind(this));
+        
+    } else if (this.scope.company.hipchat) {
+      // HipChat API V1 doesn't support listing out rooms or users from the client
+      // HipChat API V2 doesn't support posting as anyone other than the token's owner
+      
       this.scope.defaultChannel = '';
     }
     
@@ -59,16 +77,20 @@ var CompanyService = Service.extend({
   postMessage: function () {
     ga('send', 'event', 'button', 'click', 'post message');
     
-    if (this.scope.message.channel == '') {
+    if (this.scope.message.channel == '' || this.scope.message.channel == undefined) {
       alert('You need to specify the room/channel.');
-      document.getElementById('message-channel').select();
-    }
+      document.querySelector('#message-channel').focus();
+      return;
+    } 
     
-    this.scope.defaultChannel = this.scope.message.channel;
+    if (typeof this.scope.message.channel == 'object') {
+      this.scope.defaultChannel = this.scope.message.channel;
+      this.scope.message.channel = this.scope.message.channel.name;
+    }
     
     this.scope.sending = true;
 
-    this.scope.$http.post('/create', { url: this.scope.company.url, message: this.scope.message })
+    this.scope.$http.post('/create', { company: this.scope.company, message: this.scope.message })
       .success(function (data) {
         this.hideMessage();
       }.bind(this))
@@ -87,13 +109,22 @@ var CompanyService = Service.extend({
   
   
   
-  newCustomCharacter: function () {
+  newCustomCharacter: function (character) {
     this.hideMessage();
     
-    this.scope.customCharacter = {
-      name: 'Name',
-      icon_url: ''
-    };
+    if (character !== undefined) {
+      this.scope.customCharacter = character;
+    } else {
+      this.scope.customCharacter = {
+        name: 'Name',
+        icon_url: ''
+      };
+    }
+    
+    // Make sure there is something for the default text
+    if (this.scope.customCharacter.default_text == undefined) {
+      this.scope.customCharacter.default_test = 'Hello';
+    }
     
     setTimeout(function () { document.getElementById('custom-character-name').select()}, 1);
   },
@@ -137,6 +168,48 @@ var CompanyService = Service.extend({
       
       this.hideMessage();
     }
+  },
+  
+  
+  cloneTeamMember: function (teamMember) {
+    if (teamMember == null) return;
+    
+    var character;
+    if (this.scope.company.slack) {
+      character = {
+        name: this._cloneTeamMemberName(teamMember.name),
+        icon_url: 'http://mustachify.me/?src=' + encodeURIComponent(teamMember.profile.image_192)
+      };
+    } else if (this.scope.company.hipchat) {
+      character = {
+        name: this._cloneTeamMemberName(teamMember.name),
+        icon_url: 'https://www.hipchat.com/img/silhouette_125.png'
+      }
+    }
+    
+    this.newCustomCharacter(character);
+  },
+  
+  _cloneTeamMemberName: function (name) {
+    var replacements = {
+      "n": "ñ",
+      "a": "á",
+      "e": "é",
+      "i": "í",
+      "o": "ó",
+      "u": "ú",
+    }
+    
+    var key,
+        replacement;
+    for (key in replacements) {
+      replacement = replacements[key];
+      if (name.indexOf(key) != -1) {
+        return name.replace(key, replacement);
+      }
+    }
+    
+    return name;
   }
 
 });

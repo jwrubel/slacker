@@ -17,7 +17,8 @@ var HomeService = Service.extend(function () {
     this.scope.errors = {};
     this.scope.company = {
       name: '',
-      url: ''
+      slack: false,
+      hipchat: false
     };
     this.scope.service = 'slack';
 
@@ -34,33 +35,37 @@ var HomeService = Service.extend(function () {
     this.scope.service = service;
     
     if (service == 'slack') {
-      document.getElementById('slack-url').style.display = 'block';
+      document.getElementById('slack-token').style.display = 'block';
       document.getElementById('slack-tab').className = 'active';
-      document.getElementById('hipchat-url').style.display = 'none';
+      document.getElementById('hipchat-token').style.display = 'none';
       document.getElementById('hipchat-tab').className = '';
-      document.getElementById('slack-url-input').select();
+      document.getElementById('slack-token-input').select();
       
     } else if (service == 'hipchat') {
-      document.getElementById('hipchat-url').style.display = 'block';
+      document.getElementById('hipchat-token').style.display = 'block';
       document.getElementById('hipchat-tab').className = 'active';
-      document.getElementById('slack-url').style.display = 'none';
+      document.getElementById('slack-token').style.display = 'none';
       document.getElementById('slack-tab').className = '';
-      document.getElementById('hipchat-url-input').select();
+      document.getElementById('hipchat-token-input').select();
       
     }
   },
 
 
   createCompany: function () {
-    if (this.scope.company.url == '') {
-      this.scope.errors.url = 'is missing';
-      document.getElementById(this.scope.service + '-url-input').focus();
+    if (this.scope.company.token == '') {
+      this.scope.errors.token = 'is missing';
+      document.getElementById(this.scope.service + '-token-input').focus();
       return;
     }
     
-    // Detect HipChat API key
-    if (this.scope.company.url.indexOf('http') == -1) {
-      this.scope.company.url = "https://api.hipchat.com/v1/rooms/message?format=json&auth_token=" + this.scope.company.url;
+    switch (this.scope.service) {
+      case 'slack':
+        this.scope.company.slack = this.scope.company.token;
+        break;
+      case 'hipchat':
+        this.scope.company.hipchat = this.scope.company.token;
+        break;
     }
     
     var data = btoa(JSON.stringify(this.scope.company));
