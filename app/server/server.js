@@ -25,7 +25,8 @@ server.post('/create', function (req, res) {
       channel: (req.body.message.channel == '' ? 'general' : req.body.message.channel),
       username: req.body.message.character.username,
       icon_url: req.body.message.character.icon_url,
-      text: req.body.message.text
+      text: req.body.message.text,
+      link_names: 1
     });
     
     options.url = 'https://slack.com/api/chat.postMessage?' + params;
