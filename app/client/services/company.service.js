@@ -178,7 +178,8 @@ var CompanyService = Service.extend({
     if (this.scope.company.slack) {
       character = {
         name: this._cloneTeamMemberName(teamMember.name),
-        icon_url: 'http://mustachify.me/?src=' + encodeURIComponent(teamMember.profile.image_192)
+        // icon_url: 'http://mustachify.me/?src=' + encodeURIComponent(teamMember.profile.image_192)
+        icon_url: teamMember.profile.image_192
       };
     } else if (this.scope.company.hipchat) {
       character = {
