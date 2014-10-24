@@ -1,14 +1,14 @@
 var Service = require('./base.service');
 
 
-exports = module.exports = function() {
+exports = module.exports = function () {
   return new CompanyService();
 };
 
 
 var CompanyService = Service.extend({
 
-  init: function() {
+  init: function () {
     this.supr();
 
     window.scrollTo(0, 0);
@@ -24,13 +24,13 @@ var CompanyService = Service.extend({
     if (this.scope.company.slack) {
       // Get channels
       this.scope.$http.get('https://slack.com/api/channels.list?token=' + this.scope.company.slack)
-        .success(function(data) {
+        .success(function (data) {
           this.scope.channels = data.channels;
           this.scope.defaultChannel = this.scope.channels[0];
         }.bind(this));
       // Get team members
       this.scope.$http.get('https://slack.com/api/users.list?token=' + this.scope.company.slack)
-        .success(function(data) {
+        .success(function (data) {
           this.scope.teamMembers = data.members;
           this.scope.cloneTarget = null;
         }.bind(this));
@@ -52,7 +52,7 @@ var CompanyService = Service.extend({
     }
 
     // Key events
-    window.onkeydown = function(event) {
+    window.onkeydown = function (event) {
       // Focus the filter
       if (event.keyCode == 27) {
         document.getElementById('filter').select();
@@ -61,22 +61,23 @@ var CompanyService = Service.extend({
   },
 
 
-  newMessage: function(character) {
+  newMessage: function (character) {
     if (this.scope.customCharacter) return;
 
     this.scope.message = {
-        character: character,
-        text: character.default_text,
-        channel: this.scope.defaultChannel
-      }
-      // Select the message text
-    setTimeout(function() {
+      character: character,
+      text: character.default_text,
+      channel: this.scope.defaultChannel
+    }
+    
+    // Select the message text
+    setTimeout(function () {
       document.getElementById('message-text').select()
     }, 1);
   },
 
 
-  postMessage: function() {
+  postMessage: function () {
     ga('send', 'event', 'button', 'click', 'post message');
 
     if (this.scope.message.channel == '' || this.scope.message.channel == undefined) {
@@ -96,25 +97,23 @@ var CompanyService = Service.extend({
         company: this.scope.company,
         message: this.scope.message
       })
-      .success(function(data) {
+      .success(function (data) {
         this.hideMessage();
       }.bind(this))
-      .error(function(data) {
+      .error(function (data) {
         alert('Your message could not be posted.');
         this.scope.sending = false;
       }.bind(this));
   },
 
 
-  hideMessage: function() {
+  hideMessage: function () {
     this.scope.sending = false;
     this.scope.message = null;
   },
 
 
-
-
-  newCustomCharacter: function(character) {
+  newCustomCharacter: function (character) {
     this.hideMessage();
 
     if (character !== undefined) {
@@ -131,22 +130,22 @@ var CompanyService = Service.extend({
       this.scope.customCharacter.default_test = 'Hello';
     }
 
-    setTimeout(function() {
+    setTimeout(function () {
       document.getElementById('custom-character-name').select()
     }, 1);
   },
 
 
-  editCustomCharacter: function(character) {
+  editCustomCharacter: function (character) {
     this.scope.customCharacter = character;
 
-    setTimeout(function() {
+    setTimeout(function () {
       document.getElementById('custom-character-name').select()
     }, 1);
   },
 
 
-  saveCustomCharacter: function() {
+  saveCustomCharacter: function () {
     var character = this.scope.customCharacter;
     character.username = character.name.replace(/[^a-zA-Z_'"\s!@#$%^&*()-+=?]*/, '');
     character.custom = true;
@@ -165,12 +164,13 @@ var CompanyService = Service.extend({
   },
 
 
-  cancelEditCustomCharacter: function() {
+
+  cancelEditCustomCharacter: function () {
     this.scope.customCharacter = null;
   },
 
 
-  deleteCustomCharacter: function(character) {
+  deleteCustomCharacter: function (character) {
     if (confirm('Delete ' + character.name + '?')) {
       this.scope.customCharacters.splice(this.scope.customCharacters.indexOf(character), 1);
       localStorage.setItem('customCharacters', JSON.stringify(this.scope.customCharacters));
@@ -180,7 +180,7 @@ var CompanyService = Service.extend({
   },
 
 
-  cloneTeamMember: function(teamMember) {
+  cloneTeamMember: function (teamMember) {
     if (teamMember == null) return;
 
     var character;
@@ -188,7 +188,7 @@ var CompanyService = Service.extend({
       character = {
         name: this._cloneTeamMemberName(teamMember.name),
         icon_url: 'http://mustachify.me/?src=' + encodeURIComponent(teamMember.profile.image_192)
-          // icon_url: teamMember.profile.image_192
+        // icon_url: teamMember.profile.image_192
       };
     } else if (this.scope.company.hipchat) {
       character = {
@@ -199,22 +199,24 @@ var CompanyService = Service.extend({
 
     this.newCustomCharacter(character);
   },
+  
 
-  _cloneTeamMemberName: function(name) {
+  _cloneTeamMemberName: function (name) {
     var replacements = {
       "n": "ñ",
+      "i": "í",
       "a": "á",
       "e": "é",
-      "i": "í",
       "o": "ó",
       "u": "ú",
     }
 
     var key,
-      replacement;
+        replacement;
+        
     for (key in replacements) {
       replacement = replacements[key];
-      if (name.indexOf(key) != -1) {
+      if (name.indexOf(key) > 0) {
         return name.replace(key, replacement);
       }
     }
