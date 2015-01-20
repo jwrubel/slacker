@@ -19,7 +19,7 @@ var bower_components = {
     './bower_components/klass/klass.js'
   ],
   css: [
-    './bower_components/bootstrap-css/css/bootstrap.css'
+    './bower_components/bootstrap/css/bootstrap.css'
   ]
 };
 
