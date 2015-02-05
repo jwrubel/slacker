@@ -23,7 +23,7 @@ var CompanyService = Service.extend({
 
     if (this.scope.company.slack) {
       // Get channels
-      this.scope.$http.get('https://slack.com/api/channels.list?token=' + this.scope.company.slack)
+      this.scope.$http.get('https://slack.com/api/channels.list?exclude_archived=1&token=' + this.scope.company.slack)
         .success(function (data) {
           this.scope.channels = data.channels;
           this.scope.defaultChannel = this.scope.channels[0];
