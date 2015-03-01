@@ -4,13 +4,15 @@
   "description": "A simple app for sending joke messages to Slack",
   "author": "Nathan Hoad",
   "main": "app/server/server.js",
+  "engines": {
+    "node": "0.x",
+    "npm": "2.x"
+  },
   "dependencies": {
     "express": "~4.1",
     "body-parser": "~1.1",
     "request": "~2.35",
-    "qs": "~1.2"
-  },
-  "devDependencies": {
+    "qs": "~1.2",
     "bower": "1.x",
     "gulp": "3.x",
     "gulp-concat": "*",
@@ -28,8 +30,8 @@
     "gulp-exit": "*"
   },
   "scripts": {
-    "postinstall": "bower install && gulp",
-    "start": "node app/server/server.js"
+    "postinstall": "./node_modules/bower/bin/bower install && gulp build",
+    "start": "foreman start web"
   },
   "repository": {
     "type": "git",

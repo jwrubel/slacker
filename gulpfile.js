@@ -19,7 +19,7 @@ var bower_components = {
     './bower_components/klass/klass.js'
   ],
   css: [
-    './bower_components/bootstrap/css/bootstrap.css'
+    './bower_components/bootstrap-css/css/bootstrap.css'
   ]
 };
 
@@ -95,13 +95,6 @@ gulp.task('server', function () {
   }).on('error', function (error) {
     return error;
   });
-});
-
-
-gulp.task('clean', function () {
-  gulp.src(['./build'], { read: false })
-    .pipe(clean())
-    .pipe(exit());
 });
 
 
