@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    util = require('gulp-util'),
     concat = require('gulp-concat'),
     streamify = require('gulp-streamify'),
     uglify = require('gulp-uglify'),
@@ -6,9 +7,7 @@ var gulp = require('gulp'),
     browserify = require('browserify'),
     less = require('gulp-less'),
     minifycss = require('gulp-minify-css'),
-    nodemon = require('gulp-nodemon'),
-    clean = require('gulp-clean'),
-    exit = require('gulp-exit');
+    nodemon = require('gulp-nodemon');
     
 
 var bower_components = {
@@ -29,58 +28,45 @@ gulp.task('js', function () {
   gulp.src(bower_components.js)
     .pipe(concat('bower.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('build'))
-    .on('end', livereload('.js'))
+    .pipe(gulp.dest('build'));
 
   // Client
-  browserify('./app/client/client.js').on('error', function(err) {
-    console.log(err);
-    return err;
-  }).bundle()
-    .on('error', function (err) {
-      console.log(err);
-      return err;
-    })
+  browserify('./app/client/client.js')
+    .bundle()
+    .on('error', util.log.bind(util, 'Browserify Error'))
     .pipe(source('./app/client/client.js'))
     .pipe(streamify(uglify()))
     .pipe(streamify(concat('app.min.js')))
-    .pipe(gulp.dest('build'))
-    .on('end', livereload('.js'))
+    .pipe(gulp.dest('build'));
 });
 
 
 gulp.task('css', function () {
   // Bower
   gulp.src(bower_components.css)
-    .pipe(minifycss())
-    .pipe(concat('bower.min.css'))
-    .pipe(gulp.dest('build'))
-    .on('end', livereload('.css'))
+    .pipe(streamify(minifycss()))
+    .pipe(streamify(concat('bower.min.css')))
+    .pipe(gulp.dest('build'));
 
   // App
   gulp.src('app/client/styles/app.less')
-    .pipe(less()).on('error', function (error) {
-      console.log(error.message);
-      return error;
-    })
-    .pipe(minifycss())
-    .pipe(concat('app.min.css'))
-    .pipe(gulp.dest('build'))
-    .on('end', livereload('.css'))
+    .pipe(less())
+    .on('error', util.log.bind(util, 'Less Error'))
+    .pipe(streamify(minifycss()))
+    .pipe(streamify(concat('app.min.css')))
+    .pipe(gulp.dest('build'));
 });
 
 
 gulp.task('html', function () {
   gulp.src('app/views/*.html')
-    .pipe(gulp.dest('build'))
-    .on('end', livereload('.html'))
+    .pipe(gulp.dest('build'));
 });
 
 
 gulp.task('images', function () {
   gulp.src('app/client/images/*')
-    .pipe(gulp.dest('build'))
-    .on('end', livereload('.html'))
+    .pipe(gulp.dest('build'));
 });
 
 
@@ -88,7 +74,7 @@ gulp.task('server', function () {
   nodemon({
     script: 'app/server/server.js',
     ext: 'js',
-    ignore: ['gulpfile.js', 'scripts/*'],
+    ignore: ['gulpfile.js', 'app/client/*'],
     env: {
       'NODE_ENV': 'development'
     }
@@ -98,31 +84,15 @@ gulp.task('server', function () {
 });
 
 
-var livereloadServer = null;
-var livereload = function (_file) {
-  return function (_path) {
-    if (livereloadServer) livereloadServer.changed(_file);
-  }
-}
-
 gulp.task('watch', function() {
-  livereloadServer = require('gulp-livereload')();
-
   gulp.watch(['app/**/*.js', 'bower_components/**/*.js'], ['js']);
   gulp.watch(['app/**/*.less', 'bower_components/**/*.css'], ['css']);
   gulp.watch(['app/**/*.html'], ['html']);
   gulp.watch(['app/**/*.png', 'app/**/*.jpg'], ['images']);
 });
 
-gulp.task('run', [
-  'default',
-  'watch',
-  'server'
-]);
-
-gulp.task('build', [
-  'js', 'css', 'html', 'images',
-]);
+gulp.task('run', ['default', 'watch', 'server']);
+gulp.task('build', ['js', 'css', 'html', 'images']);
 
 
 gulp.task('default', ['build']);

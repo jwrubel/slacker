@@ -18,16 +18,13 @@
     "gulp-concat": "*",
     "gulp-streamify": "*",
     "gulp-uglify": "*",
-    "browserify": "4.x",
+    "gulp-util": "^3.0.3",
+    "browserify": "^7.0.1",
     "vinyl-source-stream": "*",
     "gulp-less": "*",
     "gulp-minify-css": "*",
     "gulp-rename": "*",
-    "gulp-notify": "*",
-    "gulp-nodemon": "*",
-    "gulp-livereload": "*",
-    "gulp-clean": "*",
-    "gulp-exit": "*"
+    "gulp-nodemon": "*"
   },
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install && gulp build",
