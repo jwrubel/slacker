@@ -66,7 +66,7 @@ server.use(function (req, res, next) {
   return res.sendfile(file);
 });
 
-var port = process.env.SLACKER_PORT || 8080;
+var port = process.env.PORT || 5000;
 server.listen(port);
 
 console.log("Server running on http://localhost:" + port);
