@@ -52,8 +52,13 @@ server.post('/create', function (req, res) {
   request(options, function (err, response, body) {
     if (err) {
       res.send(500, err);
-      res.end();
-      return;
+      return res.end();
+    }
+    
+    body = JSON.parse(body);
+    if (body.ok === false) {
+        res.send(500, body.error);
+        return res.end();
     }
 
     res.send(200, body);

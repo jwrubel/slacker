@@ -25,8 +25,16 @@ var CompanyService = Service.extend({
       // Get channels
       this.scope.$http.get('https://slack.com/api/channels.list?exclude_archived=1&token=' + this.scope.company.slack)
         .success(function (data) {
-          this.scope.channels = data.channels;
+          this.scope.channels = data.channels.map(function(channel) { channel.displayName = channel.name; return channel; });
           this.scope.defaultChannel = this.scope.channels[0];
+          // Get private group channels
+          this.scope.$http.get('https://slack.com/api/groups.list?exclude_archived=1&token=' + this.scope.company.slack)
+            .success(function (data) {
+                data.groups.forEach(function (channel) {
+                    channel.displayName = channel.name + ' (private)';
+                    this.scope.channels.push(channel);
+                }.bind(this));
+            }.bind(this));
         }.bind(this));
       // Get team members
       this.scope.$http.get('https://slack.com/api/users.list?token=' + this.scope.company.slack)

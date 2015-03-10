@@ -64,7 +64,7 @@
           <div class="form-group">
             <div class="col-sm-4">
               <div ng-if="channels">
-                <select id="message-channel" ng-model="message.channel" ng-options="channel as channel.name for channel in channels" class="form-control input-sm"></select>
+                <select id="message-channel" ng-model="message.channel" ng-options="channel as channel.displayName for channel in channels track by channel.name" class="form-control input-sm"></select>
               </div>
               <div ng-if="!channels">
                 <input id="message-channel" type="text" class="form-control" ng-model="message.channel" placeholder="room/channel" />
