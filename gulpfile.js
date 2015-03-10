@@ -1,10 +1,10 @@
 var gulp = require('gulp'),
     util = require('gulp-util'),
     concat = require('gulp-concat'),
-    streamify = require('gulp-streamify'),
     uglify = require('gulp-uglify'),
     source = require('vinyl-source-stream'),
     browserify = require('browserify'),
+    streamify = require('gulp-streamify'),
     less = require('gulp-less'),
     minifycss = require('gulp-minify-css'),
     nodemon = require('gulp-nodemon');
@@ -27,16 +27,15 @@ gulp.task('js', function () {
   // Bower
   gulp.src(bower_components.js)
     .pipe(concat('bower.min.js'))
-    .pipe(uglify())
+    .pipe(streamify(uglify()))
     .pipe(gulp.dest('build'));
 
   // Client
   browserify('./app/client/client.js')
     .bundle()
     .on('error', util.log.bind(util, 'Browserify Error'))
-    .pipe(source('./app/client/client.js'))
+    .pipe(source('app.min.js'))
     .pipe(streamify(uglify()))
-    .pipe(streamify(concat('app.min.js')))
     .pipe(gulp.dest('build'));
 });
 
@@ -44,16 +43,16 @@ gulp.task('js', function () {
 gulp.task('css', function () {
   // Bower
   gulp.src(bower_components.css)
-    .pipe(streamify(minifycss()))
-    .pipe(streamify(concat('bower.min.css')))
+    .pipe(minifycss())
+    .pipe(concat('bower.min.css'))
     .pipe(gulp.dest('build'));
 
   // App
   gulp.src('app/client/styles/app.less')
     .pipe(less())
     .on('error', util.log.bind(util, 'Less Error'))
-    .pipe(streamify(minifycss()))
-    .pipe(streamify(concat('app.min.css')))
+    .pipe(minifycss({ processImport: false }))
+    .pipe(concat('app.min.css'))
     .pipe(gulp.dest('build'));
 });
 
