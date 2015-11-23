@@ -33,7 +33,7 @@
   <div class="panel pick-a-character" ng-if="!message && !customCharacter && !company.url">
     Pick a character
   </div>
-  
+
   <div class="panel" ng-if="company.url">
     <div class="alert alert-success">
       <p style="font-size: 24px;">Slacker has been updated!</p>
@@ -60,17 +60,21 @@
 
         <form ng-show="!sending" ng-submit="companyService.postMessage()" class="form-horizontal">
           <textarea id="message-text" ng-model="message.text" rows="5" placeholder="Hello"></textarea>
-          
+
           <div class="form-group">
             <div class="col-sm-4">
               <div ng-if="channels">
                 <select id="message-channel" ng-model="message.channel" ng-options="channel as channel.displayName for channel in channels track by channel.name" class="form-control input-sm"></select>
               </div>
               <div ng-if="!channels">
+                <div class="favorite-label">Default Rooms</div>
+                <select name="favoriteRooms" id="favoriteRooms" ng-model="message.channel">
+                  <option ng-repeat="room in favoriteRooms" value="{{room.value}}">{{room.name}}</option>
+                </select>
                 <input id="message-channel" type="text" class="form-control" ng-model="message.channel" placeholder="room/channel" />
               </div>
             </div>
-            
+
             <div class="col-sm-8" style="text-align:right">
               <button class="btn btn-primary" type="submit">Post!</button>
               <button class="btn btn-default" type="button" ng-click="companyService.hideMessage()">Close</button>
@@ -85,7 +89,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="panel" ng-if="customCharacter && !company.url">
     <div class="custom-character">
       <div class="character">
@@ -102,16 +106,16 @@
           <div class="form-group">
             <input type="text" class="form-control" ng-model="customCharacter.default_text" placeholder="Default message" />
           </div>
-          
+
           <div class="form-group">
             <button class="btn btn-success" type="submit">Save</button>
             <button class="btn btn-default" type="button" ng-click="companyService.cancelEditCustomCharacter()">Cancel</button>
           </div>
-          
+
           <div class="form-group help-block">
             Custom characters are only saved for you (when you use this browser).
           </div>
-          
+
           <div ng-if="teamMembers" class="form-group">
             <hr />
             <p>Clone a current team member:</p>

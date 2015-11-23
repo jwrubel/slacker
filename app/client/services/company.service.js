@@ -46,7 +46,10 @@ var CompanyService = Service.extend({
     } else if (this.scope.company.hipchat) {
       // HipChat API V1 doesn't support listing out rooms or users from the client
       // HipChat API V2 doesn't support posting as anyone other than the token's owner
-
+      this.scope.favoriteRooms = [
+        {name: 'Off-Topic', value: 427739},
+        {name: 'Spam Room', value: 181836},
+      ]
       this.scope.defaultChannel = '';
     }
 
@@ -77,7 +80,7 @@ var CompanyService = Service.extend({
       text: character.default_text,
       channel: this.scope.defaultChannel
     }
-    
+
     // Select the message text
     setTimeout(function () {
       document.getElementById('message-text').select()
@@ -207,7 +210,7 @@ var CompanyService = Service.extend({
 
     this.newCustomCharacter(character);
   },
-  
+
 
   _cloneTeamMemberName: function (name) {
     var replacements = {
@@ -221,7 +224,7 @@ var CompanyService = Service.extend({
 
     var key,
         replacement;
-        
+
     for (key in replacements) {
       replacement = replacements[key];
       if (name.indexOf(key) > 0) {
