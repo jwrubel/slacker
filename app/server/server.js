@@ -33,14 +33,19 @@ server.post('/create', function (req, res) {
 
   } else if (req.body.company.hipchat) {
     options.url = 'https://api.hipchat.com/v1/rooms/message?format=json&auth_token=' + req.body.company.hipchat;
-
+    message_text = ''
+    if (req.body.message.character.icon_url == null) {
+      message_text = "<table><tr><td><img src='" + req.body.message.character.icon_url + "' width='60' height='60'></td><td>" + req.body.message.text + "</td></tr></table>"
+    } else {
+      message_text = "<table><tr><td>" + req.body.message.text + "</td></tr></table>"
+    }
     options.body = QS.stringify({
       room_id: req.body.message.channel,
       from: req.body.message.character.username,
-      message: "<table><tr><td><img src='" + req.body.message.character.icon_url + "' width='60' height='60'></td><td>" + req.body.message.text + "</td></tr></table>", // create some simple html to send
+      message: message_text,
       message_format: "html",
       notify: 1,
-      color: "gray",
+      color: "purple",
       format: "json"
     });
 
